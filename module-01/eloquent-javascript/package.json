@@ -1,0 +1,24 @@
+{
+  "name": "eloquent-javascript",
+  "version": "1.0.0",
+  "description": "practice exercises from the book Eloquent JS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianaSanchezOrdonez/nerdery-program-2021.git"
+  },
+  "keywords": [
+    "exercises",
+    "javascript",
+    "eloquent-javascript"
+  ],
+  "author": "Diana Snachez Ordoñez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DianaSanchezOrdonez/nerdery-program-2021/issues"
+  },
+  "homepage": "https://github.com/DianaSanchezOrdonez/nerdery-program-2021#readme"
+}
