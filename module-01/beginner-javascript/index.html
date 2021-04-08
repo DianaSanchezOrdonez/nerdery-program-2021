@@ -1,60 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM MODULE</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- <script src="./some.js" async refer></script> -->
-</head>
-<body>
-    <p>Beginner Javascript</p>
+  </head>
+  <body>
+    <img
+      class="cool"
+      src="./images/image-house.jpg"
+      alt="House image"
+      style="width: 300px; height: 300px; object-fit: cover"
+    />
 
-   <script src="./some.js"></script> 
-   <script src="./scope.js"></script>
-   <script src="./dom-practice.js"></script>
-   <script>
-    //    function outer(){
-    //        const outerVar = 'Hey I am outer var!';
+    <div>
+      <img class="custom" data-name="house-1" data-description="big-house-" src="./images/image-house.jpg" alt="House image"
+      style="width: 200px;"/> 
+      <img class="custom" data-name="house-2" src="./images/image-house.jpg" alt="House image" 
+      style="width: 200px;"/>
+      <img class="custom" data-name="house-3" src="./images/image-house.jpg" alt="House image"
+      style="width: 200px;"/>
+    </div>
 
-    //        return function inner(){
-    //            const innerVar = 'Hey I am inner var!';
-    //            console.log(innerVar);
-    //            console.log(outerVar);
-    //        }
-    //    }
+    <div class="items">
+      <div class="item">
+        <img
+          src="./images/image-house.jpg"
+          alt="image-house"
+          style="width: 200px"
+        />
+        <p class="item">I'm an item</p>
+      </div>
 
-    //    const innerFn = outer();
-    //    innerFn()
+      <div class="item">
+        <img
+          src="./images/image-house.jpg"
+          alt="image-house"
+          style="width: 200px"
+        />
+        <h2>
+          I'm a heading
+          <span>I'm hidden!</span>
+        </h2>
+        <p class="item">I'm an item</p>
+      </div>
 
-    // function createGreeting(greeting = ''){
-    //     const myGreet = greeting.toUpperCase();
-        
-    //     return function(name){
-    //         return `${myGreet} ${name}`
-    //     }
+      <article class="item">
+        <h2>I'm an article</h2>
+        <p class="pizza">I love the pizza ✋</p>
+      </article>
+    </div>
 
-    // }
+    <style>
+      * {
+        font-family: 'Roboto', sans-serif;
+      }
 
-    // const sayHello = createGreeting('hello');
-    // const sayHey = createGreeting('hey');
+      h2 span {
+        display: none;
+      }
 
-    // console.log(sayHello('wes'));
-    // console.log(sayHello('bos'));
-    // console.log(sayHey('kira'));
+      img {
+        transition: all 0.2s;
+      }
 
-    // function createGame(gameName) {
-    //     let score = 0;
+      .rounded {
+        border-radius: 50%;
+        transform: rotate(20deg);
+        /* transform: rotate(1turn) scale(2); */
+      }
+    </style>
 
-    //     return function win(){
-    //         score++;
-    //         return `You played ${gameName} with the score ${score} `
-    //     }
-    // }
+    <script src="./some.js"></script>
+    <script src="./scope.js"></script>
+    <script src="./dom-practice.js"></script>
+    <script src="./creating.js"></script>
+    <script>
+      //    function outer(){
+      //        const outerVar = 'Hey I am outer var!';
 
-    // const soccerGame = createGame('soccer');
-    // const skingGame = createGame('sking');
+      //        return function inner(){
+      //            const innerVar = 'Hey I am inner var!';
+      //            console.log(innerVar);
+      //            console.log(outerVar);
+      //        }
+      //    }
 
-   </script>
-</body>
+      //    const innerFn = outer();
+      //    innerFn()
+
+      // function createGreeting(greeting = ''){
+      //     const myGreet = greeting.toUpperCase();
+
+      //     return function(name){
+      //         return `${myGreet} ${name}`
+      //     }
+
+      // }
+
+      // const sayHello = createGreeting('hello');
+      // const sayHey = createGreeting('hey');
+
+      // console.log(sayHello('wes'));
+      // console.log(sayHello('bos'));
+      // console.log(sayHey('kira'));
+
+      // function createGame(gameName) {
+      //     let score = 0;
+
+      //     return function win(){
+      //         score++;
+      //         return `You played ${gameName} with the score ${score} `
+      //     }
+      // }
+
+      // const soccerGame = createGame('soccer');
+      // const skingGame = createGame('sking');
+    </script>
+  </body>
 </html>
