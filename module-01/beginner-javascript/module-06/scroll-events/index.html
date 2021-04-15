@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="terms-and-conditions">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur, et enim ad consectetur
+                cumque non minima. Deserunt eveniet, minima iure harum qui laborum repudiandae cum reprehenderit
+                excepturi corporis nemo quaerat illo dolorum iusto dicta aliquid voluptate quod. Fugit eveniet
+                exercitationem ut corporis, esse velit nostrum non, dolore quia expedita itaque dolorum illum vitae
+                mollitia dicta ullam vel nam eos minima aliquid laborum? Quaerat tempora vero ratione reiciendis debitis
+                dignissimos ipsam eos distinctio necessitatibus? Sint consequuntur molestiae pariatur odio assumenda aut
+                exercitationem libero, amet voluptas voluptatem accusamus consectetur est harum, accusantium laboriosam
+                nihil nesciunt quidem, recusandae ex dignissimos in. Eum.
+            </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur, et enim ad consectetur
+                cumque non minima. Deserunt eveniet, minima iure harum qui laborum repudiandae cum reprehenderit
+                excepturi corporis nemo quaerat illo dolorum iusto dicta aliquid voluptate quod. Fugit eveniet
+                exercitationem ut corporis, esse velit nostrum non, dolore quia expedita itaque dolorum illum vitae
+                mollitia dicta ullam vel nam eos minima aliquid laborum? Quaerat tempora vero ratione reiciendis debitis
+                dignissimos ipsam eos distinctio necessitatibus? Sint consequuntur molestiae pariatur odio assumenda aut
+                exercitationem libero, amet voluptas voluptatem accusamus consectetur est harum, accusantium laboriosam
+                nihil nesciunt quidem, recusandae ex dignissimos in. Eum.
+            </p>
+            <strong class="watch">Watch for me !</strong>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur, et enim ad consectetur
+                cumque non minima. Deserunt eveniet, minima iure harum qui laborum repudiandae cum reprehenderit
+                excepturi corporis nemo quaerat illo dolorum iusto dicta aliquid voluptate quod. Fugit eveniet
+                exercitationem ut corporis, esse velit nostrum non, dolore quia expedita itaque dolorum illum vitae
+                mollitia dicta ullam vel nam eos minima aliquid laborum? Quaerat tempora vero ratione reiciendis debitis
+                dignissimos ipsam eos distinctio necessitatibus? Sint consequuntur molestiae pariatur odio assumenda aut
+                exercitationem libero, amet voluptas voluptatem accusamus consectetur est harum, accusantium laboriosam
+                nihil nesciunt quidem, recusandae ex dignissimos in. Eum.
+            </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur, et enim ad consectetur
+                cumque non minima. Deserunt eveniet, minima iure harum qui laborum repudiandae cum reprehenderit
+                excepturi corporis nemo quaerat illo dolorum iusto dicta aliquid voluptate quod. Fugit eveniet
+                exercitationem ut corporis, esse velit nostrum non, dolore quia expedita itaque dolorum illum vitae
+                mollitia dicta ullam vel nam eos minima aliquid laborum? Quaerat tempora vero ratione reiciendis debitis
+                dignissimos ipsam eos distinctio necessitatibus? Sint consequuntur molestiae pariatur odio assumenda aut
+                exercitationem libero, amet voluptas voluptatem accusamus consectetur est harum, accusantium laboriosam
+                nihil nesciunt quidem, recusandae ex dignissimos in. Eum.
+            </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur, et enim ad consectetur
+                cumque non minima. Deserunt eveniet, minima iure harum qui laborum repudiandae cum reprehenderit
+                excepturi corporis nemo quaerat illo dolorum iusto dicta aliquid voluptate quod. Fugit eveniet
+                exercitationem ut corporis, esse velit nostrum non, dolore quia expedita itaque dolorum illum vitae
+                mollitia dicta ullam vel nam eos minima aliquid laborum? Quaerat tempora vero ratione reiciendis debitis
+                dignissimos ipsam eos distinctio necessitatibus? Sint consequuntur molestiae pariatur odio assumenda aut
+                exercitationem libero, amet voluptas voluptatem accusamus consectetur est harum, accusantium laboriosam
+                nihil nesciunt quidem, recusandae ex dignissimos in. Eum.
+            </p>
+            <hr>
+        </div>
+        <button class="accept" disabled>Accept</button>
+    </div>
+
+    <style>
+        * {
+            font-family: "Roboto", sans-serif;
+        }
+
+        body {
+            max-height: 100vh;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            line-height: 2;
+            background: #ffc600;
+        }
+
+        .wrapper {
+            width: 400px;
+            height: 80vh;
+            padding: 20px;
+            border: 1px solid black;
+            background: white;
+            display: grid;
+            grid-template-rows: 1fr auto;
+        }
+
+        button {
+            background: #ff0060;
+            color: white;
+            font-size: 1rem;
+            padding: 20px;
+            transition: all 0.2s;
+            border: none;
+            outline: none;
+        }
+
+        button[disabled] {
+            opacity: 0.1;
+            transform: translateX(-200%) scale(0.5);
+        }
+
+        .terms-and-conditions {
+            overflow-y: scroll;
+        }
+    </style>
+
+    <script src="./scroll-events.js"></script>
+</body>
+
+</html>
