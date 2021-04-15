@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bedmas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>BEDMAS</h1>
+    <hr>
+    <p><abbr title="Brackets">B</abbr>rackets</p>
+    <p><abbr title="Exponents">E</abbr>xponents</p>
+    <p><abbr title="Division">D</abbr>ivision</p>
+    <p><abbr title="Multiplication">M</abbr>ultiplication</p>
+    <p><abbr title="Addition">A</abbr>ddition</p>
+    <p><abbr title="Subtraction">S</abbr>ubtraction</p>
+
+    <!--Truthy Values-->
+    <!-- 1
+    full string '0'
+    -10
+    empty array []
+    empty object {} -->
+
+    <!--Falsy Values-->
+    <!-- 0
+    empty string
+    variable to set null
+    undefined number
+    'hello' * 100 NaN  -->
+
+    <h1>Switch</h1>
+    <hr>
+    <img width="200" class="turtle" src="../images/turtle.png" alt="turtle"> 
+
+    <style>
+        * {
+            font-family: "Roboto", sans-serif;
+        }
+        body {
+            background: teal;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        abbr {
+            font-size: 50px;
+        }
+
+        .turtle {
+            --x: 0;
+            --y: 0;
+            --rotate: 0; 
+            --rotateY: 0;
+            transform: translateX(var(--x)) translateY(var(--y)) rotateY(var(--rotateY)) rotate(var(--rotate));
+            transition: transform .2s;
+        }
+    </style>
+    <!-- <script src="./if-statement.js"></script> -->
+    <script src="./intervals-timers.js"></script>
+</body>
+
+</html>
