@@ -117,109 +117,104 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"shopping.js":[function(require,module,exports) {
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var shoppingForm = document.querySelector('.shopping');
-var list = document.querySelector('.list');
-var items = [];
-
-function handleSubmit(e) {
-  e.preventDefault();
-  console.log('submitted...');
-  var name = e.currentTarget.item.value;
-  var item = {
-    name: name,
-    id: Date.now(),
-    complete: false
-  }; //Push the items into our state
-
-  items.push(item); // console.log(`There  are now ${items.length} in your state`);
-
-  if (!name) return; //clear the form 
-  // e.currentTarget.item.value = '';
-
-  e.target.reset(); // displayItems();
-  //fire off a custom event that will tell anyone anyone else
-  //who cares that the items have been updated
-
-  list.dispatchEvent(new CustomEvent('itemsUpdated'));
-}
-
-function displayItems() {
-  var html = items.map(function (item) {
-    return "\n        <li class=\"shopping-item\">\n            <input \n                type=\"checkbox\" \n                value=".concat(item.id, "\n                ").concat(item.complete && 'checked', "\n            > \n            <span class=\"itemName\"> ").concat(item.name, " </span>\n            <button aria-label=\"Remove ").concat(item.name, "\" value=").concat(item.id, ">&times;</button>\n        </li>\n    ");
-  }).join('');
-  list.innerHTML = html;
-} //LOCALSTORAGE
+})({"gallery.js":[function(require,module,exports) {
+function Gallery(gallery) {
+  if (!gallery) {
+    throw new Error('No Gallery Found!'); //return;
+  } //select the elements we need
 
 
-function mirrorLocaltStorage() {
-  console.log('Saving items to localstorage...');
-  localStorage.setItem('items', JSON.stringify(items));
-}
+  var images = Array.from(gallery.querySelectorAll('img'));
+  var modal = document.querySelector('.modal');
+  var prevButton = document.querySelector('.prev');
+  var nextButton = document.querySelector('.next');
+  var currentImage;
 
-function restorageFromLocalStorage() {
-  var lsItems = JSON.parse(localStorage.getItem('items')); //pull the items from localstorage
+  function openModal() {
+    console.info('Open modal...'); //first check if the modal is already open 
 
-  if (lsItems.length) {
-    var _items;
+    if (modal.matches('.open')) {
+      console.info('Modal already open');
+      return; // stop the function from running
+    }
 
-    // items = lsItems;
-    // items.push(lsItems[0], lsItems[1]);
-    // lsItems.forEach( item => items.push(item));
-    (_items = items).push.apply(_items, _toConsumableArray(lsItems));
+    modal.classList.add('open'); //event listeners to be bound when open the modal
 
-    list.dispatchEvent(new CustomEvent('itemsUpdated'));
+    window.addEventListener('keyup', handleKeyup);
+    nextButton.addEventListener('click', showNextImage);
+    prevButton.addEventListener('click', showPrevImage);
   }
-}
 
-function deleteItem(id) {
-  console.log('Deleting item...', id); //update our item array without this one
+  function closeModal() {
+    modal.classList.remove('open'); //todo: add event listeners for clicks and keyboard...
 
-  items = items.filter(function (item) {
-    return item.id !== id;
+    window.removeEventListener('keyup', handleKeyup);
+    nextButton.removeEventListener('click', showNextImage);
+    prevButton.removeEventListener('click', showPrevImage);
+  }
+
+  function handleClickOutside(e) {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  }
+
+  function handleKeyup(e) {
+    if (e.key === 'Escape') return closeModal();
+    if (e.key === 'ArrowRight') return showNextImage();
+    if (e.key === 'ArrowLeft') return showPrevImage();
+  }
+
+  function showImage(el) {
+    if (!el) {
+      console.info('no image to show');
+      return;
+    } //update the modal with this info
+
+
+    modal.querySelector('img').src = el.src;
+    modal.querySelector('h2').textContent = el.title;
+    modal.querySelector('figure p').textContent = el.dataset.description;
+    currentImage = el;
+    openModal();
+  }
+
+  function showNextImage() {
+    // console.log(currentImage.nextElementSibling);
+    showImage(currentImage.nextElementSibling || gallery.firstElementChild);
+  }
+
+  function showPrevImage() {
+    // console.log(currentImage.nextElementSibling);
+    showImage(currentImage.previousElementSibling || gallery.lastElementChild);
+  } //These are our event listeners
+
+
+  images.forEach(function (image) {
+    return image.addEventListener('click', function (e) {
+      return showImage(e.currentTarget);
+    });
+  }); //loop over each image
+
+  images.forEach(function (image) {
+    return (//attach an event listener for each image
+      image.addEventListener('keyup', function (e) {
+        // when that is keyup'd check if it was enter
+        if (e.key = 'Enter') {
+          //if it was, show that image
+          showImage(e.currentTarget);
+        }
+
+        ;
+      })
+    );
   });
-  list.dispatchEvent(new CustomEvent('itemsUpdated'));
-}
+  modal.addEventListener('click', handleClickOutside);
+} //use in on the page
 
-function markAsComplete(id) {
-  console.log('Marking as complete', id);
-  var itemRef = items.find(function (item) {
-    return item.id === id;
-  });
-  itemRef.complete = !itemRef.complete;
-  list.dispatchEvent(new CustomEvent('itemsUpdated'));
-}
 
-shoppingForm.addEventListener('submit', handleSubmit);
-list.addEventListener('itemsUpdated', displayItems);
-list.addEventListener('itemsUpdated', mirrorLocaltStorage); //Event Delegation: We listen or the click on the list <ul>
-//but then delegation the click over to the button if that is
-//what was clicked
-
-list.addEventListener('click', function (e) {
-  var id = e.target.value;
-
-  if (e.target.matches('button')) {
-    deleteItem(parseInt(id));
-  }
-
-  if (e.target.matches('input[type="checkbox"]')) {
-    markAsComplete(parseInt(id));
-  }
-});
-restorageFromLocalStorage();
+var gallery1 = Gallery(document.querySelector('.gallery1'));
+var gallery2 = Gallery(document.querySelector('.gallery2'));
 },{}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -248,7 +243,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52917" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56973" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -424,5 +419,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","shopping.js"], null)
-//# sourceMappingURL=/shopping.3c459b95.js.map
+},{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","gallery.js"], null)
+//# sourceMappingURL=/gallery.9a8aea70.js.map

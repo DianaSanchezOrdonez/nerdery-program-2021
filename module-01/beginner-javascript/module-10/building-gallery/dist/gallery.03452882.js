@@ -117,110 +117,79 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"shopping.js":[function(require,module,exports) {
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+})({"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var shoppingForm = document.querySelector('.shopping');
-var list = document.querySelector('.list');
-var items = [];
-
-function handleSubmit(e) {
-  e.preventDefault();
-  console.log('submitted...');
-  var name = e.currentTarget.item.value;
-  var item = {
-    name: name,
-    id: Date.now(),
-    complete: false
-  }; //Push the items into our state
-
-  items.push(item); // console.log(`There  are now ${items.length} in your state`);
-
-  if (!name) return; //clear the form 
-  // e.currentTarget.item.value = '';
-
-  e.target.reset(); // displayItems();
-  //fire off a custom event that will tell anyone anyone else
-  //who cares that the items have been updated
-
-  list.dispatchEvent(new CustomEvent('itemsUpdated'));
-}
-
-function displayItems() {
-  var html = items.map(function (item) {
-    return "\n        <li class=\"shopping-item\">\n            <input \n                type=\"checkbox\" \n                value=".concat(item.id, "\n                ").concat(item.complete && 'checked', "\n            > \n            <span class=\"itemName\"> ").concat(item.name, " </span>\n            <button aria-label=\"Remove ").concat(item.name, "\" value=").concat(item.id, ">&times;</button>\n        </li>\n    ");
-  }).join('');
-  list.innerHTML = html;
-} //LOCALSTORAGE
-
-
-function mirrorLocaltStorage() {
-  console.log('Saving items to localstorage...');
-  localStorage.setItem('items', JSON.stringify(items));
-}
-
-function restorageFromLocalStorage() {
-  var lsItems = JSON.parse(localStorage.getItem('items')); //pull the items from localstorage
-
-  if (lsItems.length) {
-    var _items;
-
-    // items = lsItems;
-    // items.push(lsItems[0], lsItems[1]);
-    // lsItems.forEach( item => items.push(item));
-    (_items = items).push.apply(_items, _toConsumableArray(lsItems));
-
-    list.dispatchEvent(new CustomEvent('itemsUpdated'));
-  }
-}
-
-function deleteItem(id) {
-  console.log('Deleting item...', id); //update our item array without this one
-
-  items = items.filter(function (item) {
-    return item.id !== id;
-  });
-  list.dispatchEvent(new CustomEvent('itemsUpdated'));
-}
-
-function markAsComplete(id) {
-  console.log('Marking as complete', id);
-  var itemRef = items.find(function (item) {
-    return item.id === id;
-  });
-  itemRef.complete = !itemRef.complete;
-  list.dispatchEvent(new CustomEvent('itemsUpdated'));
-}
-
-shoppingForm.addEventListener('submit', handleSubmit);
-list.addEventListener('itemsUpdated', displayItems);
-list.addEventListener('itemsUpdated', mirrorLocaltStorage); //Event Delegation: We listen or the click on the list <ul>
-//but then delegation the click over to the button if that is
-//what was clicked
-
-list.addEventListener('click', function (e) {
-  var id = e.target.value;
-
-  if (e.target.matches('button')) {
-    deleteItem(parseInt(id));
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
   }
 
-  if (e.target.matches('input[type="checkbox"]')) {
-    markAsComplete(parseInt(id));
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
   }
-});
-restorageFromLocalStorage();
-},{}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"gallery.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -248,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52917" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56973" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -424,5 +393,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","shopping.js"], null)
-//# sourceMappingURL=/shopping.3c459b95.js.map
+},{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/gallery.03452882.js.map
