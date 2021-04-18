@@ -1,0 +1,80 @@
+:root {
+  --gray: #e7e7e7;
+  --blue: #0072b9;
+  --pink: #d60087;
+  --yellow: #ffc600;
+  --black: #2e2e2e;
+  --red: #c73737;
+  --green: #61e846;
+  --text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  --box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  background: var(--blue);
+}
+
+a.button,
+button,
+input[type="button"] {
+  color: white;
+  background: var(--pink);
+  padding: 1rem;
+  border: 0;
+  border: 2px solid transparent;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Shopping Form */
+.shopping {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.shopping-list {
+  background: white;
+  padding: 3rem;
+  border-radius: 1rem;
+  width: 500px;
+  margin: 4rem 0;
+}
+
+.shopping-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shopping-item {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid var(--gray);
+}
+
+.shopping-item input[type="checkbox"] {
+  margin-right: 1rem;
+}
+
+.shopping-item input[type="checkbox"]:checked + .itemName {
+  opacity: 0.5;
+}
+
+.shopping-item button {
+  padding: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.shopping-item button:hover {
+  transform: scale(1.4);
+}

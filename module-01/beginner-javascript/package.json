@@ -21,6 +21,7 @@
   "homepage": "https://github.com/DianaSanchezOrdonez/nerdery-program-2021#readme",
   "dependencies": {
     "install-peerdeps": "^3.0.3",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "parcel-bundler": "^1.12.5"
   }
 }
