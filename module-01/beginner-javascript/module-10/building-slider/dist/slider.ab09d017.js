@@ -118,7 +118,77 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"slider.js":[function(require,module,exports) {
+function Slider(slider) {
+  if (!(slider instanceof Element)) {
+    throw new Error('No slider passed in');
+  } //create some variables for working with the sliders
 
+
+  var prev;
+  var current;
+  var next; //select the element needed for the slider
+
+  var slides = slider.querySelector('.slides');
+  var prevButton = slider.querySelector('.goToPrev');
+  var nextButton = slider.querySelector('.goToNext');
+
+  function startSlider() {
+    current = slider.querySelector('.current') || slides.firstElementChild;
+    prev = current.previousElementSibling || slides.lastElementChild;
+    next = current.nextElementSibling || slides.firstElementChild; // console.log({current, prev, next});
+  }
+
+  function applyClasses() {
+    current.classList.add('current');
+    prev.classList.add('prev');
+    next.classList.add('next');
+  }
+
+  function move(direction) {
+    var _prev$classList, _current$classList, _next$classList;
+
+    //first strip all the classes off the current slides
+    var classToRemove = ['prev', 'current', 'next']; // prev.classList.remove('prev', 'current', 'next');
+
+    (_prev$classList = prev.classList).remove.apply(_prev$classList, classToRemove);
+
+    (_current$classList = current.classList).remove.apply(_current$classList, classToRemove);
+
+    (_next$classList = next.classList).remove.apply(_next$classList, classToRemove);
+
+    if (direction === 'back') {
+      //make an new array of the new values, and destructure
+      //them over and into the prev, current and next variables
+      var _ref = [//get the prev slide, if there is none, get the last slide
+      //from the entire slider for wrapping
+      prev.previousElementSibling || slides.lastElementChild, prev, current];
+      prev = _ref[0];
+      current = _ref[1];
+      next = _ref[2];
+    } else {
+      var _ref2 = [current, next, //get the next slide, or if it's at the end, loop around
+      //and grab the first slide
+      next.nextElementSibling || slides.firstElementChild];
+      prev = _ref2[0];
+      current = _ref2[1];
+      next = _ref2[2];
+    }
+
+    applyClasses();
+  } //When this slider is created, run the start slider function
+
+
+  startSlider();
+  applyClasses(); //buttons event listeners
+
+  prevButton.addEventListener('click', function () {
+    return move('back');
+  });
+  nextButton.addEventListener('click', move);
+}
+
+var mySlider = Slider(document.querySelector('.slider'));
+var dogSlider = Slider(document.querySelector('.dog-slider'));
 },{}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
