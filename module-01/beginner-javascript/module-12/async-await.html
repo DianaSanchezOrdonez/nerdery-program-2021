@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async - Await</title>
+</head>
+<body>
+    <script>
+        // function wait(ms = 0){
+        //     return new Promise( function(resolve, reject){
+        //         setTimeout(resolve, ms);
+        //     })
+        // }
+
+        // async function go(){
+        //     console.log('Starting');
+        //     await wait(2000);
+        //     console.log('Processing...');
+        //     await wait(200);
+        //     console.log('Ending');
+        // }
+
+        // go();
+
+        function makePizza(toppings = []){
+            return new Promise(function(resolve, reject){
+                const amountOfTimeToBake = 500 + (toppings.length * 200);
+                //handler error
+                if(toppings.includes('pineapple')){
+                    reject('Seriously! get out 🍍')
+                }
+                //wait 1 second for the pizza to cook
+                setTimeout(function(){
+                    //when you are ready, you can resolve this promise
+                    resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(' ')}`);
+                }, amountOfTimeToBake)
+                
+                //if something wrong, we can reject this promise
+            })
+        }
+
+        //BAD PERFORMANCE THE PIZZA2 AWAIT TO RESOLVE THE FIRST PROMISE
+        // async function makeDinner(){
+        //     const pizza1 = await makePizza(['mushrooms', 'ham']);
+        //     console.log(pizza1);
+        //     const pizza2 = await makePizza(['onions', 'meat']);
+        //     console.log(pizza2);
+        // }
+
+        //RESOLVE CONCURRENTLY BOTH PROMISES
+        async function makeDinner(){
+            const pizzaPromise1 = await makePizza(['mushrooms', 'ham']);
+            const pizzaPromise2 = await makePizza(['onions', 'meat']);
+            
+            const [pizza1, pizza2] = await Promise.all([pizzaPromise1, pizzaPromise2]);
+            console.log(pizza1, pizza2);
+
+        }
+
+        //makeDinner();
+
+        //HANDLING ERRORS
+        //1.    TRY AND CATCH
+        // async function go(){
+        //     try {
+        //         const pizza = await makePizza(['pineapple']);
+        //         console.log(pizza);
+        //     } catch (error) {
+        //         console.log('Oh nooooo!');
+        //         console.log(error);
+        //     }
+        // }
+
+        //2.    MIXED WITH PROMISES SYNTAX
+        // function handleError(error){
+        //     console.log('Oh noooo!!!');
+        //     console.log(error);
+        // }
+
+        // async function go(){
+        //     const pizza = await makePizza(['pineapple'])
+        //     console.log(pizza);
+        // }
+
+        // go().catch(handleError);
+
+        //3.    USE HIGHER ORDER FUNCTIONS
+        function handleError(error){
+            console.log('Oh noooo!!!');
+            console.log(error);
+        }
+
+        async function go(){
+            const pizza = await makePizza(['pineapple'])
+            console.log(pizza);
+        }
+
+        function makeSafe(fn, errorFunction){
+            return function(){
+                fn().catch(errorFunction);
+            }
+        }
+
+       const safeGo = makeSafe(go, handleError);
+       safeGo();
+
+        //Function declaration 
+        async function fd(){}
+
+        //arrow function
+        const arrowFn = async() => {}
+
+        //call back
+        window.addEventListener('click', async function(){})
+
+        //
+        const person = {
+            //method
+            sayHi: async function(){
+
+            },
+
+            //method shorthand
+            async sayHello(){},
+
+            //function property
+            sayHey: async() => {}
+        }
+
+
+    </script>
+</body>
+</html>

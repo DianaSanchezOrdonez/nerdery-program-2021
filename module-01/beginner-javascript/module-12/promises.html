@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises</title>
+</head>
+<body>
+    <script>
+        function makePizza(toppings = []){
+            return new Promise(function(resolve, reject){
+                const amountOfTimeToBake = 500 + (toppings.length * 200);
+                //handler error
+                if(toppings.includes('pineapple')){
+                    reject('Seriously! get out 🍍')
+                }
+                //wait 1 second for the pizza to cook
+                setTimeout(function(){
+                    //when you are ready, you can resolve this promise
+                    resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(' ')}`);
+                }, amountOfTimeToBake)
+                
+                //if something wrong, we can reject this promise
+            })
+        }
+
+        // const pepperoniPizza = makePizza(['pepperoni']);
+        // const canadianPizza = makePizza(['mushrooms', 'onions', 'tomatoes']);
+
+        // console.log(pepperoniPizza);
+        // console.log(canadianPizza);
+
+        // canadianPizza.then(function(pizza){
+        //     console.log('Ah got it!');
+        //     console.log(pizza);
+        // })
+
+        // makePizza(['pepperoni'])
+        //     .then(function(pizza){
+        //         console.log(pizza);
+        //         return makePizza(['mushrooms', 'onions', 'tomatoes']);
+        //     })
+        //     .then(function(pizza){
+        //         console.log(pizza);
+        //         return makePizza(['tomatoes']);
+        //     })
+        //     .then(function(pizza){
+        //         console.log(pizza);
+        //         return makePizza();
+        //     })
+        //     .then(function(pizza){
+        //         console.log(pizza);
+        //         return makePizza(['mushrooms', 'onions', 'tomatoes', 'mushrooms', 'onions', 'tomatoes']);
+        //     })
+        //     .then(function(pizza){
+        //         console.log('All done! here is your last pizza');
+        //         console.log(pizza);
+        //     });
+
+        //Run them concurrently
+        // const pizzaPromise1 = makePizza(['mushrooms', 'onions', 'tomatoes']);
+        // const pizzaPromise2 = makePizza(['one', 'two', 'three', 'one', 'two', 'three', 'one', 'two', 'three']);
+        // const pizzaPromise3 = makePizza(['ham', 'cheese']);
+
+        // const dinnerPizzaPromise = Promise.all([pizzaPromise1, pizzaPromise2, pizzaPromise3]);
+
+        // dinnerPizzaPromise
+        //     .then(function([pizza1, pizza2, pizza3]){
+        //         console.log( pizza1, pizza2, pizza3 );
+        //     });
+
+        // const firstPizzaPromise = Promise.race([pizzaPromise1, pizzaPromise2, pizzaPromise3]);
+
+        // firstPizzaPromise
+        //     .then(function(pizza){
+        //         console.log('You must be hungry');
+        //         console.log(pizza);
+        //     })
+
+        // function handleError(err){
+        //     console.log('Oh nooo!');
+        //     console.log(err);
+        // }
+
+        // makePizza(['pepperoni', 'pineapple'])
+        //     .then(function(pizza){
+        //         console.log(pizza);
+        //     }).catch(handleError)
+
+        // const p1 = makePizza(['mushrooms', 'pineapple']);
+        // const p2 = makePizza(['pepperoni', 'ham']);
+        // const p3 = makePizza(['hot pepper', 'onion']);
+
+        // const dinnerPromise2 = Promise.allSettled([p1, p2, p3]);
+
+        // dinnerPromise2
+        //     .then( result => {
+        //         console.log('result→', result);
+        //     })
+
+
+    </script>
+</body>
+</html>
